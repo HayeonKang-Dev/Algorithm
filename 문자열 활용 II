@@ -1,0 +1,25 @@
+#include <stdio.h>
+using namespace std;
+//  문자와 숫자가 섞여있는 문자열엥서 숫자만 추출하여 순서대로 자연수 생성 
+// 만들어진 자연수와 그 자연수의 약수 개수 출력 
+// 첫자리 0은 무시  
+int main(){
+	//freopen("input.txt", "rt", stdin);
+	char a[100];
+	int res=0, cnt=0, i; 
+	scanf("%s", &a);
+	for(i=0; a[i]!='\0'; i++) // 문자열의 마지막에 들어있는 \0가 아닐 때 for문 돌기  
+	{
+		if(a[i]>=48 && a[i]<=57){
+			res = res*10+(a[i]-48); // 자연수 만들기  
+		}
+	}
+	printf("%d\n", res);
+	for(i=1; i<=res; i++)
+	{
+		if(res%i==0) cnt ++;
+	}
+	printf("%d\n", cnt);
+	
+	return 0; 
+} 
