@@ -1,0 +1,19 @@
+#include <stdio.h>
+using namespace std;
+// 1부터 n 까지 약수개수 출력하기  
+// 속도 줄이기에 집중
+int cnt[50001]; // 약수 개수 넣을 배열   
+int main(){
+	//freopen("input.txt", "rt", stdin);
+	int n, i, j;
+	scanf("%d", &n);
+	for(i=1; i<=n; i++){
+		for(j=i; j<=n; j=j+i){  
+			cnt[j]++; // i의 배수인 수들의 약수 개수 +1
+		}
+	}
+	for(i=1; i<=n; i++){
+		printf("%d ", cnt[i]);
+	}
+	return 0; 
+} 
