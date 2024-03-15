@@ -1,0 +1,17 @@
+#include <iostream>
+using namespace std;
+// 1부터 n까지 수 중 m의 배수 모두 합하여 출력
+int main(){
+	int n, m, i, sum=0;
+	cin>>n>>m; //  첫번째로 받는 수는 n, 두번째로 받는 수는 m에 들어감  '::' : 범위 지정 연산자  
+	for(i=1; i<=n; i++)
+	{
+		// i가m의 배수인지 확인
+		if(i%m==0)
+		{
+			sum += i; 
+		}
+	}
+	cout<<sum;
+	return 0; 
+} 
