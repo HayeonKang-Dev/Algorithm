@@ -1,0 +1,18 @@
+#include <stdio.h>
+using namespace std;
+// 1부터n까지의 자연수를 종이에 적을 때 총 몇 자의 수가 쓰였을까?  
+
+int main(){
+	//freopen("input.txt", "rt", stdin);
+	int n, i, cnt=0, tmp;
+	scanf("%d", &n);
+	for(i=1; i<=n; i++){
+		tmp=i;
+		while(tmp>0){
+			tmp=tmp/10; // 한자리씩 줄어들게
+			cnt++; 
+		}
+	}
+	printf("%d", cnt);
+	return 0; 
+} 
