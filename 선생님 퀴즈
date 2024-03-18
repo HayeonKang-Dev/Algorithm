@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+// 선생님 퀴즈  
+// 자연수 합계 
+
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int n, num, res, sum; // 학생 수, 학생이 받은 수, 학생이 제출한 답변, 실제 합계
+	scanf("%d", &n); 
+	for(int i=0; i<n; i++){
+		sum=0; // 합계 초기화
+		scanf("%d", &num);
+		scanf("%d", &res);
+		for(int j=1; j<=num; j++){ // 합계 구하기
+			sum += j;
+		}
+		if(sum != res) printf("NO\n");
+		else printf("YES\n");
+	}
+	return 0; 
+} 
