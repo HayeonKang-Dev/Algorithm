@@ -1,0 +1,22 @@
+#include <stdio.h>
+// 입력된 자연수 중 가장 많이 사용된 자릿수  
+// 반복 횟수가 중복되면 더 큰 수 채택  
+int ch[10]; // 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+int main(){
+	//freopen("input.txt", "rt", stdin);
+	int i, digit, max=-2147000000, res;
+	char a[101];
+	scanf("%s", &a);
+	for(i=0; a[i]!='\0'; i++){
+		digit=a[i]-48; // ascii를 자연수로 변환
+		ch[digit]++;  // digit 인덱스 자리에 1 증가  
+	}
+	for(i=0; i<=9; i++){ // 최대값 찾기  
+		if(ch[i]>=max){ 
+			max=ch[i];
+			res=i;
+		}
+	}
+	printf("%d\n", res);
+	return 0; 
+} 
