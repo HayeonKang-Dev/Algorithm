@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm>  
+using namespace std;
+
+// N!의 표현법    
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int i, j, n, tmp;
+	scanf("%d", &n);
+// ch : 각 인수가 몇개인지 체크할 배열
+	vector<int> ch(n+1);
+	for(i=2; i<=n; i++){
+		tmp=i; // i를 건드리면 안되니까 복사 
+		j=2; // 나눌 수 지정
+		while(1) {
+			if(tmp%j==0){ // j로 딱 나눠 떨어진다면  
+				tmp=tmp/j; // tmp를 나눈 수로 갱신
+				ch[j]++; // ch에 j 개수 하나 증가 
+			}
+			else j++;
+			if(tmp==1) break; //더이상 나눌게 없음  
+		}
+	}
+	printf("%d! = ", n);
+	for(i=2; i<=n; i++){
+		// 인수인 것만 출력  
+		if(ch[i]!=0) printf("%d ", ch[i]);
+	}
+	return 0; 
+} 
