@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+using namespace std;
+
+// Jolly Jumpers   
+// ex. n=5, 수열 => 1, 4, 2, 3, 7
+// 수들 간 차가 (n-1)을 넘지 않고, 차들이 중복되지 않아야 함. 
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int n, i, now, pre, diff;
+	scanf("%d", &n);
+	vector<int> ch(n); // n개의 index 생성, 각 0으로 초기화되어있는 상태 
+	scanf("%d", &pre);
+	for(i=1; i<n; i++){
+		scanf("%d", &now);
+		diff=abs(pre-now);
+		if(diff<n && ch[diff]==0) ch[diff]=1; 
+		else {
+			printf("NO\n");
+			return 0; //프로그램 종료  
+		}
+		pre=now;
+	}
+	printf("YES\n"); // NO면 프로그램 종료했을 것. 
+	
+	return 0; 
+} 
