@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+using namespace std;
+
+// 석차 구하기  
+// 점수가 입력되면, 입력된 순서대로 몇등인지 출력 
+
+int main(){
+	freopen("input.txt", "rt", stdin);
+  // 변수 선언, a, b 배열은 입력조건에 맞게 크기 지정
+	int i, j, a[200], b[200], n;
+	scanf("%d", &n);
+
+  // 등수니까 1부터 시작
+	for(i=1; i<=n; i++){
+		scanf("%d", &a[i]); // 인덱스를 1번부터로 지정
+		b[i]=1; 
+	} 
+
+  // 나보다 높은 점수를 가진 학생이 있다면 내 등수를 하나 증가
+	for(i=1; i<=n; i++){
+		for(j=1; j<=n; j++){
+			if(a[j]>a[i]) b[i]++;
+		}
+	}
+	for(i=1; i<=n; i++){
+		printf("%d ", b[i]);
+	}
+	return 0; 
+} 
