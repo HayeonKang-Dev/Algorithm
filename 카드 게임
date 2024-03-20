@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h> 
+
+// 카드게임  
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int a[10];
+	int b[10];
+	int a_sum=0, b_sum=0;
+	char winner;
+	for(int i=0; i<10; i++){
+		scanf("%d", &a[i]);
+	}
+	
+	for(int i=0; i<10; i++){
+		scanf("%d", &b[i]);
+	}
+
+	
+	for (int i=0; i<10; i++){
+		if(a[i] > b[i]) {
+			a_sum += 3;
+			winner = 'A';
+		}
+		else if(a[i] < b[i]) {
+			b_sum += 3;
+			winner = 'B';
+		}
+		else if (a[i]==b[i]){
+			a_sum += 1;
+			b_sum += 1;
+		}
+	}
+	printf("%d %d\n", a_sum, b_sum);
+	if(a_sum > b_sum) printf("A");
+	else if(a_sum < b_sum) printf("B");
+	else if(a_sum==10 && b_sum==10) printf("D");
+	else{
+		printf("%c", winner);
+	}
+	return 0; 
+} 
