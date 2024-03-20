@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당  
+
+// 온도의 최댓값
+// O(n)으로 해결해야 함. time limit 
+// 10일 동안 1일에 한번씩 온도 측정, 연속적인 k일 동안에 가장 높았던 온도는 몇 도일까?  
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int n, k, i, sum=0, max;
+	scanf("%d %d", &n, &k);
+	std::vector<int> a(n); // n 크기의 배열 생성 
+	for(i=0; i<n; i++){
+		scanf("%d", &a[i]);
+	} 
+	for(i=0; i<k; i++){
+		sum += a[i]; // 첫 구간의 합 구하기  
+	}
+	max=sum;
+	for(i=k; i<n; i++){
+		sum = sum+(a[i]-a[i-k]); // 괄호 써야 함 
+		if(sum>max) max=sum;
+	}
+	printf("%d\n", max);
+	return 0; 
+} 
