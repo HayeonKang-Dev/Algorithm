@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+using namespace std;
+
+// 3의 개수 (large) 
+// cur: 현재 포커싱하는 수 (일의 자리->십의자리->백의자리..) 
+// lt : cur의 왼쪽 수 
+// rt : cur의 오른쪽 수  
+// cur이 3보다 큰지, 작은지 같은지의 경우로 나눠 처리 
+	// ex. n=5367, cur=6, lt=53, rt=7, 현재 십의 자리에 있으니 k=10 
+	// cur> 3, (lt+1)*k = 54*10 = 3이 540개 
+		// Q. k=1, cur=7, lt=536, rt=0 -> cur>3 537*1=537 => 일의자리에서 나올 수 있는 3은 537개   
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int n, lt=1, cur, rt, k=1, res=0; 
+	scanf("%d", &n); 
+	
+	while (lt!=0){
+		lt=n/(k*10);
+		cur=(n/k)%10;
+		rt=n%k;
+		if(cur>3) res += (lt+1)*k;
+		else if(cur<3) res += lt*k;
+		else res += (lt*k) + (rt+1);
+		k *= 10;
+	}
+	printf("%d\n", res);
+	return 0; 
+} 
