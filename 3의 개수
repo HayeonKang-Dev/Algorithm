@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+using namespace std;
+
+// 3의 개수? 
+// 1~n 중 3은 몇번 작성되었을까? 
+//ex. n=15, 1 2 *3* 4 5 6 7 8 9 10 11 12 1*3* 14 15 -> 2번 
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int n, tmp, i, cnt=0, digit;
+	scanf("%d", &n); 
+	for(i=1; i<=n; i++){
+		tmp=i; 
+		// 자릿수 분해  
+		while(tmp>0){
+			digit=tmp%10; 
+			if(digit==3) cnt++; // 3 발견하면 cnt 1 증가  
+			tmp=tmp/10; 
+		}
+	}
+	printf("%d\n", cnt);
+	return 0; 
+} 
