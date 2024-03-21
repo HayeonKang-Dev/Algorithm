@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+using namespace std;
+
+// N!에서 0의 개수 
+// idea : 0은 2x5에서 발생 -> 2와 5의 개수를 찾아내서, 둘의 개수 중 더 작은쪽의 개수가 0의 개수가 됨. 
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int n, i, j, tmp, cnt1=0, cnt2=0;
+	scanf("%d", &n);
+	
+	// 소인수분해 
+	for(i=2; i<=n; i++){
+		tmp=i; // 소인수분해 할 대상 (팩토리얼의 각 숫자 가져오기) 
+		j=2; 
+		while(1){
+			if(tmp%j==0){
+				if(j==2) cnt1++; // 2 개수 증가 
+				else if(j==5) cnt2++; 
+				tmp=tmp/j; // 이미 구한 인수는 걷어내고  
+			}
+			else j++; // j로 나눠지지 않으면 1 증가 
+			if(tmp==1) break; // 더이상 나눌 수 없으니 다음 반복으로 넘어가기  
+		} 
+	} 
+	//2와 5 중에서 더 개수가 적은 쪽의 개수 출력  
+	if(cnt1<cnt2) printf("%d\n", cnt1);
+	else printf("%d\n", cnt2); 
+	return 0; 
+} 
