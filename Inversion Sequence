@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+using namespace std;
+
+
+// Inversion Sequence (insertion sort 응용)  
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int n, i, j, pos; 
+	scanf("%d", &n); 
+	vector<int> is(n+1), os(n+1); // 0으로 초기화된 배열
+	for(i=1; i<=n; i++){
+		scanf("%d", &is[i]);
+	} 
+	for(i=n; i>=1; i--){
+		pos=i; 
+		for(j=1; j<=is[i]; j++){ // i의 앞에 있어야 하는 큰 수 개수만큼 당기기  
+			os[pos] = os[pos+1];
+			pos++; 
+		}
+		os[pos]=i;
+	}
+	for(i=1; i<=n; i++){
+		printf("%d ", os[i]);
+	}
+	return 0; 
+} 
