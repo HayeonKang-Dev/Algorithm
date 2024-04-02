@@ -1,0 +1,30 @@
+// Inversion Sequence (insertion sort 응용)  
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int n, i, j, idx;
+	scanf("%d", &n); 
+	int a[n], b[n]; 
+	
+	for(i=0; i<n; i++){
+		scanf("%d", &a[i]);
+		b[i] =0; 
+	}
+	b[a[0]]=1; // 1이 가장 작은 수니까, 앞에 있어야하는 큰 수 개수 자체가 1이 들어갈 인덱스값이 됨
+	
+	for(i=1; i<n; i++){
+		idx=a[i];
+		for(j=0; j<i; j++){
+			if(a[i] > a[j]) { // a보다 큰 수의 인덱스가 a의 인덱스보다 작을 때, 인덱스 증가 
+				idx++; 
+			}
+		}
+		while(1){ // 인덱스 자리에 이미 수가 있다면 인덱스 증가 
+			if(b[idx]!=0)idx++; 
+			else break; 
+		}
+		b[idx]=i+1; // 빈 자리를 찾았으면 삽입
+		
+	}
+	for(i=0; i<n; i++) printf("%d ", b[i]);
+	return 0; 
+} 
