@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+using namespace std;
+
+
+// insertion sort  (오름차순)  
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int a[100], n, tmp, i, j; 
+	scanf("%d", &n); 
+	for(i=0; i<n; i++){
+		scanf("%d", &a[i]);
+	}
+	for(i=1; i<n; i++){
+		tmp = a[i];
+		for(j=i-1; j>=0; j--){ // ex. i=3, j=2, 1, 0 
+			if(a[j]>tmp) a[j+1]=a[j]; // j가 더 크면 자리 바꾸기 
+			else break; 
+		}
+		a[j+1]=tmp; // 작거나 같은 수 발견하면 break한 지점의 뒤 자리에 삽입 
+	}
+	for(i=0; i<n; i++){
+		printf("%d ", a[i]);
+	}
+	return 0; 
+} 
