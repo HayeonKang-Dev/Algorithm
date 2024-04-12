@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+using namespace std;  
+int a[2001];
+// 멀티태스킹 kakao - Josephus  
+
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int n, k, i, p=0, cnt=0, tot=0;  // p : 인덱스 담는 변수 cnt: 초 세기 tot : 작업 시간 총합 
+	scanf("%d", &n);
+	for(i=1; i<=n; i++){
+		scanf("%d", &a[i]);
+		tot+=a[i]; // 작업 시간의 총합 
+	}
+	scanf("%d", &k);
+	if(k>=tot){ // 정전까지 걸리는 시간이 작업시간의 총합보다 크거나 같을 때,  
+		printf("-1\n"); // 그 시점엔 이미 모든 작업을 수행했을 것이니, 더 수행할 작업 없으므로 -1 출력  
+		return 0;
+	}
+	// 작업 수행 중... 
+	while(1){  
+		p++; // 인덱스 하나 증가  
+		if(p>n) p=1; // 작업 개수보다 인덱스 커지면 다시 1로 초기화  
+		if(a[p]==0) continue; // 해당 작업을 모두 수행했으면 다음 턴으로 넘기기 (아래 수행 안하고) 
+		a[p]--; // 작업 처리하는 과정이므로 1초 감소 시키기 
+		cnt++; // 1초 세기  
+		if(cnt==k) break; // 정전까지 걸리는 시간인 k가 되면 while문을 중지  
+	}
+	// 정전 발생! 
+	while(1){
+		p++; // 인덱스 증가  
+		if(p>n) p=1;  // 인덱스가 작업 개수보다 크면 1로 초기화  
+		if(a[p]!=0) break; // p번 작업이 0이 아니면 while 중지 (해야하는 작업 찾음)  
+	}
+	printf("%d\n", p);
+	return 0;
+} 
