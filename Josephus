@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+using namespace std;  
+
+// 공주 구하기 - Josephus  
+
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int n, k, pos=0, bp=0, cnt=0; // pos: 인덱스값 저장할 변수, bp=아웃당한 왕자 수 셀 변수 cnt=0의 개수 셀 변수  
+	scanf("%d %d", &n, &k);
+	vector<int> prince(n+1); // 왕자 번호 담을 배열 (1번부터 시작이니까 n+1로 설정하고, 인덱스를 1번부터 탐색하도록 함) 
+	while(1){
+		pos++; // 인덱스 하나 증가 (처음에 0으로 선언했으니)  
+		if(pos>n) pos=1; // 인덱스값 증가하다가 왕자 수보다 커지면 다시 1로 초기화 
+		if(prince[pos]==0){ // 아직 아웃되지 않은 왕자라면,  
+			cnt++; // 0 개수 하나 증가하고 
+			if(cnt==k){ // 만약 0개수가 k개랑 같으면  
+				prince[pos]=1; // 해당 왕자는 아웃당하고(1로 변경) 
+				cnt=0; // 다시 0 개수를 0으로 초기화  
+				bp++; // 아웃당한 왕자 수 하나 증가  
+			}
+		}
+		if(bp==n-1) break; // 아웃당한 왕자 수가 n-1명으로, 한명만 남았으면 while문 중지  
+	} 
+	// 한명 남은 왕자의 번호 출력  
+	for(int i=1; i<=n; i++){
+		if(prince[i]==0){ // 1로 체크되지 않은게 아직 아웃되지 않은 것이므로, 0 찾아서 해당 인덱스 값 출력  
+			printf("%d\n", i);
+			break;
+		}
+	}
+} 
