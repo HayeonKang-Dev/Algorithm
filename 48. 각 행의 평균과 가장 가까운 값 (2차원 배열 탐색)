@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+using namespace std;  
+
+// 각 행의 평균과 가장 가까운 값 (2차원 배열 탐색)  
+int a[10][10]; 
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int i, j, sum, ave, min, tmp, res;
+	for(i=1; i<=9; i++){
+		sum=0; 
+		for(j=1; j<=9; j++){
+			scanf("%d", &a[i][j]);
+			sum+=a[i][j];
+		}
+		
+		ave=(sum/9.0) + 0.5;
+		printf("%d ", ave);
+		min = 2147000000;
+		for(j=1; j<=9; j++){
+			tmp = abs(a[i][j]-ave);
+			if(tmp < min){
+				min=tmp; 
+				res=a[i][j];
+			}
+			else if(tmp==min){
+				if(a[i][j]>res) res=a[i][j];
+			}
+		}
+		printf("%d\n", res);
+	}
+	return 0;
+} 
