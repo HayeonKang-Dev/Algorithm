@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+using namespace std;  
+
+// 영지 선택 (large)  - dynamic programming
+int a[701][701], dy[701][701];
+
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int h, w, n, m, i, j, tmp, max=-2147000000;
+	scanf("%d %d", &h, &w);
+	// dy 배열에 a의 누적값 구하기 : (dy[i][j]의 위, 좌 값을 더하고, 중복 더해진 값(좌상단) 빼고 a[i][j]를 더해 
+	for(i=1; i<=h; i++){
+		for(j=1; j<=w; j++){
+			scanf("%d", &a[i][j]);
+			dy[i][j] = dy[i-1][j] + dy[i][j-1] - dy[i-1][j-1] + a[i][j];
+		}
+	}
+	scanf("%d %d", &n, &m);
+	// 돌면서 nxm 의 최댓값 찾기  
+	for(i=n; i<=h; i++){
+		for(j=m; j<=w; j++){
+			// [i][j]부터 nxm 칸의 값 구하기  
+			tmp = dy[i][j] - dy[i-n][j] - dy[i][j-m] + dy[i-n][j-m];
+			if(tmp > max) max=tmp; 
+		}
+	}
+	printf("%d\n", max);
+	return 0;
+} 
