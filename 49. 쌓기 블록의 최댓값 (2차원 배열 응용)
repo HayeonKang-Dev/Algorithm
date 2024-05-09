@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+using namespace std;  
+
+// 쌓기 블록의 최댓값 (2차원 배열 응용) 
+int a[11][11];
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int n, h, sum=0; 
+	scanf("%d", &n);
+	
+	// 각 열을 정면 높이로 채우기  
+	for(int i=0; i<n; i++){
+		scanf("%d", &h);
+		for(int j=0; j<n; j++){
+			a[j][i] = h; 
+		}
+	}
+	
+	// 채워놓은 값이 오른쪽 측면에서 본 값보다 높으면 오른쪽 측면에서 본 높이로 수정 
+	for(int i=0; i<n; i++){
+		scanf("%d", &h);
+		for(int j=0; j<n; j++){
+			if(h < a[i][j]) a[i][j] = h; 
+		}
+	} 
+	
+	// 블록 개수 총 개수 구하기  
+	for(int i=n-1; i>=0; i--){
+		for(int j=0; j<n; j++){
+			sum += a[i][j];
+		}
+	}
+	
+	printf("%d\n", sum);
+	retu
