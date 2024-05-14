@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+#include <stack>
+using namespace std;  
+
+// 기차 운행   
+
+int main(){
+	freopen("input.txt", "rt", stdin);
+	stack<int> s; // 열차 받을 스택 
+	int i, j=1, n, m;
+	scanf("%d", &n);
+	
+	vector<int> a(n+1); // 열차 번호랑 비교할 리스트 (ex. n=3, a = [1, 2, 3]
+	for(i=1; i<=n; i++){
+		a[i] = i;
+	}
+	
+	vector<char> str; // PO 순서 작성할 리스트 
+	
+	for(i=1; i<=n; i++){
+		scanf("%d", &m); 
+		s.push(m); // 열차 번호 들어오면 스택에 넣기
+		str.push_back('P'); // 넣었으니까 str에 P 입력
+		while(1){
+			if(s.empty()) break; // 스택이 비어있으면 멈추기
+			if(a[j] == s.top()){ // 스택의 가장 윗 값이 현재 나와야 하는 값이랑 일치할 때 
+				s.pop(); // 해당 값 빼기
+				j++; // 포인터 하나 증가 (이제 그 다음 열차 나와야 함)
+				str.push_back('O'); // 뺐으니까 O 입력
+			}
+			else break; // 스택의 가장 윗 값이 나와야 하는 값이랑 다름 (불능)
+		}
+	}
