@@ -1,0 +1,40 @@
+#include <stdio.h>
+int data[10], tmp[10];
+
+void divide(int lt, int rt){ // lt=left, rt=right
+	int mid;
+	int p1, p2, p3; //pointer p1은 왼쪽, p2는 오른쪽, p3은 tmp 배열에 적재할 때 쓸 포인터 
+	// 분할
+	if(lt < rt){
+			mid = (lt+rt)/2;
+			divide(lt, mid); //	쪼갠 범위 전달 
+			divide(mid+1, rt); // 쪼갠 나머지 범위 전달 
+			
+			// 병합 정렬
+			p1=lt; 
+			p2=mid+1; 
+			p3=lt;
+			while(p1<=mid && p2 <=rt){
+					if(data[p1] < data[p2]) tmp[p3++] = data[p1++];
+					else tmp[p3++] = data[p2++]; // p2 위치 값이 더 작으니까 먼저 tmp에 집어넣기 (정렬) 
+			}
+			while(p1 <= mid) tmp[p3++] = data[p1++];
+			while(p2 <= rt) tmp[p3++] = data[p2++];
+			// 정렬 반영
+			for(int i=lt; i<=rt; i++){
+				data[i] = tmp[i]; 
+			}
+	}
+			
+int main(){
+	int n, i; 
+	scanf("%d", &n);
+	for(i=1; i<=n; i++){
+		scanf("%d", &data[i]);
+	}
+	divide(1, n); // 정렬하는 재귀함수, 1부터 n까지 정렬함
+	for(i=1; i<=n; i++){
+		printf("%d\n", data[i]);
+	}
+	return 0;
+}
