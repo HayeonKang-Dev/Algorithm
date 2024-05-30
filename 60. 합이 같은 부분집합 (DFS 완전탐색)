@@ -1,0 +1,30 @@
+#include <stdio.h>
+int n, a[11], total=0; 
+bool flag=false;
+
+void DFS(int L, int sum){
+	if(sum>total/2) return;  // 전체 합의 절반보다 크면 하는 의미가 없음 
+	if(flag) return; 
+	if(L==n+1){ //  모든 원소를 다 탐색함 -> 부분집합 산정 완료!
+			if(sum==(total-sum)){ // 부분집합 간 합이 같으면
+					flag=true;
+			}
+	}
+	else{
+			DFS(L+1, sum+a[L]); // a[L]을 원소로 포함할 경우 sum에 a[L] 더하기 (왼쪽 브랜치)
+			DFS(L+1, sum); // a[L]을 원소로 포함하지 않을 경우 
+	}
+}
+
+int main(){
+	int i; 
+	scanf("%d", &n);
+	for(i=1; i<=n; i++){
+		scanf("%d", &a[i]);
+		total+=a[i];
+	}
+	DFS(1, 0); 
+	if(flag) printf("YES");
+	else printf("NO");
+	return 0;
+}
