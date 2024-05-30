@@ -1,0 +1,15 @@
+void D(int x){ // 재귀함수
+	if(x==0) return;
+	else{
+		D(x-1);
+		printf("%d ", x);
+	}
+}
+
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int n; 
+	scanf("%d", &n);
+	D(n);
+	return 0;
+} 
