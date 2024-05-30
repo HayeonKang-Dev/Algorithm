@@ -1,0 +1,25 @@
+#inlucde <stdio.h>
+int a[11], n, m, cnt=0;
+
+void DFS(int L, int val){
+	if(L==n+1){ // 식 하나가 완성되었을 떄 
+			if(val==m) cnt++; // 비교 대상인 m과 같으면 개수 하나 증가 
+	}
+	else{
+		DFS(L+1, val+a[L]); // 더하는 경우
+		DFS(L+1, val-a[L]); // 빼는 경우
+		DFS(L+1, val); // 아무것도 안하기 
+	}
+}
+
+int main(){
+	int i; 
+	scanf("%d %d", &n, &m); 
+	for(i=1; i<=n; i++){ // 원소 값 받기 
+		scanf("%d", &a[i]); 
+	}
+	DFS(1, 0); // 레벨 1에서 시작, 현재 sum은 0
+	if(cnt==0) print("-1\n");
+	else printf("%d\n", cnt);
+	return 0; 
+} 
