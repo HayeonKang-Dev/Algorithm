@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+#include <stack>
+using namespace std;  
+
+
+int ch[30], cnt=0, n; 
+vector<int> map[30]; // map 배열 30개?  
+
+void DFS(int v){ 
+	if(v==n){
+		cnt++;
+	}
+	else{
+		for(int i=0; i<map[v].size(); i++){
+			if(ch[map[v][i]]==0){ // 아직 방문 안한 노드 
+				ch[map[v][i]]=1; // 방문했다고 표시 
+				DFS(map[v][i]); // 재귀 호출 
+				ch[map[v][i]]=0; // 방문 해제  
+			}
+		}
+	}
+}
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int m, i, a, b;
+	scanf("%d %d", &n, &m);
+	for(i=1; i<=m; i++){
+		scanf("%d %d", &a, &b);
+		map[a].push_back(b); // 
+	}
+	ch[1] = 1; 
+	DFS(1);
+	printf("%d\n", cnt);
+	return 0;
+} 
+// 각 노드마다 벡터를 생성하고, 각 노드가 갈 수 있는 노드를 벡터에 push 
