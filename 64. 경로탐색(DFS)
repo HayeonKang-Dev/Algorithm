@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+#include <stack>
+using namespace std;  
+
+
+int map[30][30], n, ch[30], cnt=0;
+
+void DFS(int v){
+	if(v==n){ // 도착지점에 왔어요  
+		cnt++; 
+	}
+	else{
+		for(int i=1; i<=n; i++){
+			if(map[v][i] == 1 && ch[i]==0){ // v -> i로 갈 수 있고, 아직 가지 않은 경로라면  
+				ch[i] =1; // 방문 체크 
+				DFS(i); // i 정점으로 가기 
+				ch[i] = 0;  // 방문 해제 -> 뒤로 물러날 때 해당 지점 0 해야 다시 방문 가능  
+			}
+		}
+	}
+}
+
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int m, a, b; 
+	scanf("%d %d", &n, &m);
+	for(int i=1; i<=m; i++){
+		scanf("%d %d", &a, &b);
+		map[a][b] = 1; 
+	}
+	// DFS
+	ch[1] = 1;
+	DFS(1);
+	printf("%d\n", cnt);
+	return 0;
+} 
