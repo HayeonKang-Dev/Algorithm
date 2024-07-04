@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+#include <queue>
+using namespace std;  
+
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int a; 
+	priority_queue<int> pQ;
+	while(true){
+		scanf("%d", &a);
+		if(a==-1) break; // 프로그램 종료 
+		if(a==0){
+			if(pQ.empty()) printf("-1\n"); // 비어있을 때 
+			else{
+				printf("%d\n", pQ.top()); // top = 루트 값
+				pQ.pop(); // 출력하고 제거하라고 했으니까  
+			} 
+		} 
+		else pQ.push(a); 
+	} 
+	return 0;
+} 
