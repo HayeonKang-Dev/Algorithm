@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <iostream>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+#include <queue>
+using namespace std;  
+
+// 구조체 
+struct Loc{
+	int x, y, z; 
+	// 생성자  
+	Loc(int a, int b, int c){
+		x = a; 
+		y = b; 
+		z = c; 
+	}
+	bool operator<(const Loc &b)const{ // < 연산자를 오버로딩해 Loc 객체 비교 시 사용 가능하게 함 
+		if(x!= b.x) return x<b.x; // x 값이 다르면 x가 작은 순서대로 정렬  
+		if(y!=b.y) return y<b.y;
+		if(z!=b.z) return z<b.z;
+	}
+}; 
+
+int main(){
+	//freopen("input.txt", "rt", stdin);
+	vector<Loc> XY;
+	// 구조체 삽입  
+	XY.push_back(Loc(2, 3, 5));
+	XY.push_back(Loc(3, 6, 7));
+	XY.push_back(Loc(2, 3, 1));
+	XY.push_back(Loc(5, 2, 3));
+	XY.push_back(Loc(3, 1, 6));
+	sort(XY.begin(), XY.end());
+	for(auto pos : XY) cout<<pos.x<<" "<<pos.y<<" "<<pos.z<<endl;
+	
+	return 0;
+} 
