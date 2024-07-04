@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+#include <stack>
+using namespace std;  
+
+// 이진트리 넓이 우선 탐색 (Queue 자료구조 직접구현: BFS)
+int Q[100], front=-1, back=-1, ch[10]; // Q : 노드 넣을 공간 ch : 큐에 추가되었는지 여부 체킹  
+vector<int> map[10]; // 각 노드에 연결된 노드 리스트  
+ 
+int main(){
+	freopen("input.txt", "rt", stdin);
+	
+	int i, a, b, x;
+	for(i=1; i<=6; i++){
+		scanf("%d %d", &a, &b);
+		// 각 노드에 연결되어 있는 노드 모두 저장 
+		// map = [[2, 3], [1, 4, 5], [1, 6, 7], [2], [2], [3], [3]]
+		// 1은 2, 3에 연결 / 2는 1, 4, 5에 연결 ...  
+		map[a].push_back(b);
+		map[b].push_back(a);
+	}
+	
+	// 첫번째 값인 1을 큐에 넣기 
+	Q[++back] = 1; 
+	
+	// 1 방문했닥고 체킹 
+	ch[1] = 1;
+	
+	while(front<back){ // 큐가 비어있지 않을 때  
+		// 큐의 처음에 있는 값을 x에 저장 
+		x = Q[++front]; 
+		// x 출력  
+		printf("%d ", x);
+		
+		// x와 연결된 노드 출력 
+		// map에서 x와 연결되어 있는 노드 수 얻어서 그만큼 for문 반복  
+		for(i=0; i<map[x].size(); i++){
+			if(ch[map[x][i]] == 0){ // 아직 방문 안한 노드면 (큐에 추가된 적 없는 노드면) 
+				ch[map[x][i]] = 1;  // 방문했다고 표시  
+				Q[++back] = map[x][i]; // 큐의 뒷자리에 삽입  
+					// back을 증가시켜서 다음 새로운 노드가 추가될 위치의 인덱스 증가시켜주기  
+			}
+		}
+	}
+	return 0;
+} 
