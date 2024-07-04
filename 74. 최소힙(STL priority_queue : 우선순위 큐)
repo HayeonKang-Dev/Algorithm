@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+#include <queue>
+using namespace std;  
+
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int a; 
+	priority_queue<int> pQ;
+	while(true){
+		scanf("%d", &a);
+		if(a==-1) break; // 프로그램 종료 
+		if(a==0){
+			if(pQ.empty()) printf("-1\n"); // 비어있을 때 
+			else{
+				printf("%d\n", -pQ.top()); // top = 루트 값, 부호 바꿔서 넣었었으니까 다시 부호 바꿔야 최솟값을 출력 가능  
+				pQ.pop(); // 출력하고 제거하라고 했으니까  
+			} 
+		} 
+		else pQ.push(-a); // 부호 바꿔서 입력 (절댓값으로 보면 min heap) -> 나중에 출력할 때 부호 바꿔 출력  
+	} 
+	return 0;
+} 
