@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <vector> // 동적 할당 
+#include <algorithm> // abs 
+#include <queue>
+using namespace std;  
+
+// 송아지 찾기 (BFS: 상태트리탐색) 
+
+int main(){
+	freopen("input.txt", "rt", stdin);
+	
+	queue<int> Q; 
+	int n, k, i; 
+	scanf("%d %d", &n, &k);
+	
+	for(int i=1; i<=n; i++){
+		Q.push(i);
+	}
+	
+	while(!Q.empty()){
+		// k 를 주기로 한명씩 제거  
+		for(i=1; i<k; i++){
+			Q.push(Q.front());
+			Q.pop();
+		}
+		Q.pop();
+		// 마지막 한명 남았으면 출력  
+		if(Q.size()==1){
+			printf("%d\n", Q.front());
+			Q.pop();
+		}
+	}
+	return 0;
+} 
