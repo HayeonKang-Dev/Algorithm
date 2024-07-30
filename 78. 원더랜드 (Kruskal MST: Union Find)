@@ -1,0 +1,52 @@
+int unf[1001];
+
+struct Edge{
+	int v1;
+	int v2;
+	int val;
+	Edge(int a, int b, int c){ // 생성자  
+		v1=a; 
+		v2=b;
+		val=c;
+	}
+	bool operator<(Edge &b){
+		return val<b.val; // 작은게 앞으로 가도록 오름차순 정렬해줘  (정렬 기준 설정)  
+	}
+}; 
+
+int Find(int v){ // v가 속해있는 집합 트리의 루트 노드 반환 함수 
+	if(v==unf[v]) return v;
+	else return unf[v] = Find(unf[v]); // 레벨이 깊어지지 않도록 경로 압축 
+}
+
+void Union(int a, int b){ // a, b가 서로 다른 집합일 때 같은 집합으로 합쳐주는 함수 
+	a=Find(a);
+	b=Find(b);
+	if(a!=b) unf[a] = b;
+}
+int main(){
+	freopen("input.txt", "rt", stdin);
+	vector<Edge> Ed; // Edge 구조체  
+	int i, n, m, a, b, c, cnt=0, res=0;
+	scanf("%d %d", &n, &m);
+	for(i=1; i<=n; i++){
+		unf[i] = i;
+	} 
+	// 간선 정보 읽기  
+	for(i=1; i<=m; i++){
+		scanf("%d %d %d", &a, &b, &c);
+		Ed.push_back(Edge(a, b, c));
+	}
+	sort(Ed.begin(), Ed.end()); // 가중치 기준 오름차순 정렬 
+	// 간선 선택.  
+	for(i=0; i<m; i++){
+		int fa = Find(Ed[i].v1);
+		int fb = Find(Ed[i].v2);
+		if(fa!=fb){ // 두 도로가 서로 다른 집합이면 도로 선택  (선택해도 사이클이 만들어지지 않음)  
+			res += Ed[i].val; // 가중치 더하기 (도로 선택 후)
+			Union(Ed[i].v1, Ed[i].v2); // 같은 집합으로 합쳐주기 
+		}
+	}
+	printf("%d\n", res);
+	return 0; 
+}  
