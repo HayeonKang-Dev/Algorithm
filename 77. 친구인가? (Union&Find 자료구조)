@@ -2,7 +2,7 @@ int unf[1001];
 
 int Find(int v){ // v 학생의 집합번호 알려주는 함수  
 	if(v==unf[v]) return v;
-	else return Find(unf[v]);
+	else return unf[v] = Find(unf[v]);
 }
 
 void Union(int a, int b){ // a, b가 속한 집합번호 확인하기  
