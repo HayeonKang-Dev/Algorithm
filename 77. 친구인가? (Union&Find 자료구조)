@@ -1,0 +1,32 @@
+int unf[1001];
+
+int Find(int v){ // v 학생의 집합번호 알려주는 함수  
+	if(v==unf[v]) return v;
+	else return Find(unf[v]);
+}
+
+void Union(int a, int b){ // a, b가 속한 집합번호 확인하기  
+	a = Find(a);
+	b = Find(b);
+	if(a!=b) unf[a] = b; // unf[v] = v여야 종착지. (root node) 
+}
+int main(){
+	ios_base::sync_with_stdio(false); //?
+	freopen("input.txt", "rt", stdin);
+	int n, m, a, b;
+	cin>>n>>m;
+	for(int i=1; i<=n; i++){
+		unf[i] = i;
+	}
+	for(int i=1; i<=m; i++){
+		cin>>a>>b;
+		Union(a, b);
+	}
+	cin>>a>>b;
+	// a, b의 루트가 같으면 같은 집합에 속한다 판단.  
+	a=Find(a);
+	b=Find(b);
+	if(a==b) cout<<"YES";
+	else cout<<"NO";
+	return 0; 
+}  
