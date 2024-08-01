@@ -1,0 +1,31 @@
+int n, r, cnt=0;
+int a[20], res[20], ch[20];
+int DFS(int L){
+	if(L==r){
+		for(int j=0; j<L; j++){
+			printf("%d ", res[j]);
+		}
+		cnt++;
+		puts("");
+	}
+	else{
+		for(int i=1; i<=n; i++){
+			if(ch[i]==0){ // 아직 방문하지 않은 번호  
+				res[L] = a[i]; // res에 넣기  
+				ch[i]=1;  // 넣었다고 표기  
+				DFS(L+1); // 다음 레벨로 넘기기  
+				ch[i]=0; // 방문 해제  
+			}
+		}
+	}
+}
+int main(){
+	freopen("input.txt", "rt", stdin);
+	scanf("%d %d", &n, &r);
+	for(int i=1; i<=n; i++){
+		scanf("%d", &a[i]);
+	} 
+	DFS(0);
+	printf("%d\n", cnt);
+	return 0; 
+}  
