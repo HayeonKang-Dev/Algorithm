@@ -1,0 +1,40 @@
+int ch[30];
+struct Edge{
+	int e; // 노드 번호 
+	int val; // e로 가는 가중치  
+	Edge(int a, int b){ // 생성자  
+		e=a; 
+		val=b;
+	}
+	bool operator<(const Edge &b) const{
+	return val>b.val; // min heap 
+	}
+};
+int main(){
+	freopen("input.txt", "rt", stdin);
+	priority_queue<Edge> Q;
+	vector<pair<int, int>> map[30];
+	int i, n, m, a, b, c, res=0;
+	scanf("%d %d", &n, &m);
+	for(i=1; i<=m; i++){
+		scanf("%d %d %d", &a, &b, &c);
+		map[a].push_back(make_pair(b, c));
+		map[b].push_back(make_pair(a, c));
+	}
+	Q.push(Edge(1, 0)); // 시작점 1번 노드, 1번 노드로 가는 가중치 0  
+	while(!Q.empty()) {
+		Edge tmp = Q.top(); // min heap이라서 가중치의  최솟값이 top에 있음  
+		Q.pop();
+		int v=tmp.e; // 노드 번호  
+		int cost = tmp.val; // 노드로 가는 가중치  
+		if(ch[v]==0) { // 아직 선택되지 않은 노드일 때  
+			res += cost; // 가중치 더하기  
+			ch[v] = 1;  // 선택됨을 표기  
+			for(i=0; i<map[v].size(); i++){ // 방금 선택한 노드에 연결되어 있던 노드들  
+				Q.push(Edge(map[v][i].first, map[v][i].second)); // 각 노드와 가중치를 Q에 pair로 추가  
+			}
+		}
+	}
+	printf("%d", res);
+	return 0; 
+}  
