@@ -1,0 +1,42 @@
+int n, map[30][30], cnt=0;
+int dx[8] = {0, 1, 1, 1, 0, -1, -1, -1}; // 12시 부터 시계방향으로 8방향  
+int dy[8] = {-1, -1, 0, 1, 1, 1, 0, -1};
+struct Loc{ // 좌표 구조체  
+	int x;
+	int y;
+	Loc(int a, int b){
+		x=a;
+		y=b;
+	}
+};
+
+queue<Loc> Q;
+ 
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int i, j;
+	scanf("%d", &n);
+	for(i=1; i<=n; i++) for(j=1; j<=n; j++) scanf("%d", &map[i][j]);
+	// map 돌기  
+	for(i=1; i<=n; i++){
+		for(j=1; j<=n; j++){
+			if(map[i][j] == 1){ // 1 이면 BFS 수행  
+				Q.push(Loc(i, j)); // 1인 좌표 push  
+				map[i][j] = 0; // 방문한 좌표 0으로 수정  
+				while(!Q.empty()){
+					Loc tmp = Q.front();
+					Q.pop();
+					for(int i=0; i<8; i++){ // 모든 방향에서 1인 곳 있으면 push 후 0 수정  
+						if(map[tmp.x + dx[i]][tmp.y + dy[i]]==1) {
+							Q.push(Loc(tmp.x + dx[i], tmp.y + dy[i]));
+							map[tmp.x + dx[i]][tmp.y + dy[i]] = 0;
+						}
+					}
+				}
+				cnt++; // 한 뭉탱이 끝나면 개수 증가  
+			}
+		}
+	}
+	printf("%d\n", cnt);
+	return 0; 
+}  
