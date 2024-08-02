@@ -1,0 +1,79 @@
+int map[21][21], ch[21][21];
+int dx[4] = {-1, 0, 1, 0};
+int dy[4] = {0, 1, 0, -1};
+struct State{ // 심바가 움직이는 상황 (priority queue)
+	int x, y, dis;  // dis= 이동거리  
+	State(int a, int b, int c){
+		x=a; 
+		y=b;
+		dis=c;
+	}
+	bool operator<(const State &bb) const{
+		// 우선순위: 상, 좌  
+		if(dis==bb.dis){ // 거리가 같으면  
+			if(x==bb.x) return y>bb.y; // x좌표도 같으면 y가 작은걸 top으로  
+			else return x>bb.x; // x 다르면 x 작은걸 top으로  
+			}
+		else return dis>bb.dis; // 거리가 같지 않으면 최소거리를 top으로  
+	}
+};
+
+struct Lion {
+	int x, y, s, ate;
+	void SizeUp(){
+		ate=0; // 먹은 토끼 수 초기화  
+		s++; // 사이즈업  
+	}
+};
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int n, i, j, res=0;
+	priority_queue<State> Q;
+	Lion simba; 
+	scanf("%d", &n);
+	for(i=1; i<=n; i++){
+		for(j=1; j<=n; j++){
+			scanf("%d", &map[i][j]);
+			if(map[i][j]==9) {
+				simba.x=i;
+				simba.y=j;
+				map[i][j] = 0; // 심바 위치 저장 후 0으로 초기화  
+			}
+		}
+	} 
+	Q.push(State(simba.x, simba.y, 0));
+	simba.s = 2;
+	simba.ate=0;
+	while(!Q.empty()){
+		State tmp = Q.top(); // 처음엔 초기 심바 위치  
+		Q.pop();
+		int x=tmp.x;
+		int y=tmp.y;
+		int z=tmp.dis;
+		if(map[x][y]!=0 && map[x][y] < simba.s){ // 잡아먹을 수 있는 토끼인가?  
+			simba.x = x;
+			simba.y = y;
+			simba.ate++;
+			if(simba.ate >= simba.s) simba.SizeUp();
+			map[x][y] = 0;
+			// 체크 배열 초기화  
+			for(i=1; i<=n; i++){
+				for(j=1; j<=n; j++){
+					ch[i][j] = 0;
+				}
+			}
+			while(!Q.empty()) Q.pop();
+			res = tmp.dis; // 이동거리 저장  
+		}
+		for(i=0; i<4; i++){ // 상하좌우  
+			int xx=x+dx[i];
+			int yy=y+dy[i];
+			// 격자 벗어나지 않고, 심바 사이즈보다 크거나, 이미 방문을 했으면 지나가기 
+			if(xx<1 || xx>n || yy <1 || yy > n || map[xx][yy]>simba.s || ch[xx][yy]>0) continue; 
+			Q.push(State(xx, yy, z+1));
+			ch[xx][yy] = 1;
+		}
+	}
+	printf("%d\n", res);
+	return 0; 
+}  
