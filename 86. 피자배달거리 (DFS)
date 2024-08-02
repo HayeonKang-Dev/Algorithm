@@ -1,0 +1,44 @@
+// 조합으로 푸는 문제 (Combination 코드 참조)  
+vector<pair<int, int>> pz;
+vector<pair<int, int>> hs;
+int ch[20], m, res=2147000000, dis, sum=0;
+void DFS(int L, int s){
+	if(L==m){ // 피자가게 m개 선택 완료  
+		sum=0;
+		for(int i=0; i<hs.size(); i++){ // 각 집과 피자가게 사이 최소 배달거리 찾기   
+			int x1=hs[i].first;
+			int y1=hs[i].second;
+			dis=2147000000;
+			for(int j=0; j<m; j++){
+				int x2=pz[ch[j]].first;
+				int y2=pz[ch[j]].second;
+				dis=min(dis, abs(x1-x2)+abs(y1-y2)); // i번째 집의 최소 피자배달거리 저장  
+			}
+			sum=sum+dis; // 피자배달거리 누적  
+		}
+		if(sum < res) res = sum;
+	}
+	else{
+		// pz.size() : 입력값으로 들어온 피자가게 개수  
+		for(int i=s; i<pz.size(); i++){ // 피자가게 하나씩 선택해보기  
+			ch[L] = i;
+			DFS(L+1, i+1); 
+		}
+	}
+}
+int main(){
+	ios_base::sync_with_stdio(false);
+	freopen("input.txt", "rt", stdin);
+	int n, a;
+	cin>>n>>m;
+	for(int i=1; i<=n; i++){
+		for(int j=1; j<=n; j++){
+			cin>>a;
+			if(a==1) hs.push_back(make_pair(i, j)); // 1(집)이면, 좌표를 hs에 넣기 
+			else if (a==2) pz.push_back(make_pair(i, j)); // 2(피자가게)면, 좌표를 pz에 넣기  
+		}
+	}
+	DFS(0, 0);	
+	cout<<res;  
+	return 0; 
+}  
