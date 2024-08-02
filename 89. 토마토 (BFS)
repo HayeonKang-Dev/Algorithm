@@ -1,0 +1,58 @@
+int m, n, tom[1010][1010], res=-2147000000, dis[1010][1010];
+int dx[4] = {0, 1, 0, -1};
+int dy[4] = {-1, 0, 1, 0};
+struct Loc{
+	int x, y;
+	Loc(int a, int b){
+		x=a;
+		y=b;
+	}
+}; 
+queue<Loc> Q;
+int main(){
+	freopen("input.txt", "rt", stdin);
+	scanf("%d %d", &m, &n); // m: 열, n: 행  
+	for(int i=1; i<=n; i++){
+		for(int j=1; j<=m; j++){
+			scanf("%d", &tom[i][j]);
+			if(tom[i][j]==1){
+				Q.push(Loc(i, j));
+			}
+		}
+	}	
+	while(!Q.empty()){
+		Loc tmp = Q.front();
+		Q.pop();
+		for(int i=0; i<4; i++){
+			// 갈 수 있는 곳 탐색  
+			int xx=tmp.x + dx[i];
+			int yy=tmp.y + dy[i];
+			if(tom[xx][yy] == 0){ // 진출 가능한 곳이고 (안익은 토마토)  
+				// 박스 벗어나지 않을 때  
+				if(xx>=1 && xx<=n && yy>=1 && yy<=m){
+					Q.push(Loc(xx, yy)); // 큐에 push  
+					tom[xx][yy] = 1; // 진출했으니 1로 변경 
+					dis[xx][yy] = dis[tmp.x][tmp.y] + 1; // 일수 하루 추가  
+				}
+			}
+		}
+	}
+	int f=1; 
+	// 안익은 토마토 발견하면 f=0으로 변경  
+	for(int i=1; i<=n; i++){
+		for(int j=1; j<=m; j++){
+			if(tom[i][j] == 0) f = 0; 
+		}
+	}
+	// 안익은 토마토가 없다면 일수 최댓값 찾기 ( = 토마토가 모두 익는 날짜)  
+	if(f == 1){
+		for(int i=1; i<=n; i++){
+			for(int j=1; j<=m; j++){
+				if(res < dis[i][j]) res = dis[i][j];
+			}
+		}
+		printf("%d\n", res);
+	}
+	else printf("-1"); // 안익은 토마토가 존재해서 f=0으로 바뀐 상황이면 -1 출력  
+	return 0; 
+} 
