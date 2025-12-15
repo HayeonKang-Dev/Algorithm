@@ -17,22 +17,19 @@ int main() {
         mx = max(mx, a); 
     }
     int d = 1; 
-    while(d < mx) {
+    while(mx/d > 0) {
+        init(); 
         for(int i=0; i<n; i++) {
             int digit = (v[i]/d) % 10; 
             adj[digit].push_back(v[i]); 
         }
-        bool flag = false; 
-        for(int i=0; i<10; i++) {
-            if (adj[i].size()) flag = true; 
-        }
-        if (!flag) break; 
+       
         v.clear(); 
+        v.reserve(n); 
         for(int i=0; i<10; i++) {
             for(int a : adj[i]) v.push_back(a); 
         }
         d *= 10;
-        init();
     }
     for(int a : v) cout<<a<<' ';
     return 0;
