@@ -12,12 +12,10 @@ int main() {
         v.push_back(a); 
     }
     int cnt=0;
-    for(int i=0; i<n; i++) {
-        for(int j=0; j<n; j++) {
-            for(int k=0; k<n; k++) {
-                if (i != j && j != k) {
-                    if (i < j && j < k && v[i] < v[j] && v[j] < v[k]) cnt++; 
-                }
+    for(int i =0; i<n; i++) {
+        for(int j=i+1; j<n; j++) {
+            for(int k=j+1; k<n; k++) {
+                if (v[i] <= v[j] && v[j] <= v[k]) cnt++; 
             }
         }
     }
