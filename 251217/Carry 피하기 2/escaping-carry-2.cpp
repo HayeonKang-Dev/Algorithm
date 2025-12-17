@@ -4,10 +4,11 @@ int n;
 vector<int> v; 
 bool f(int a, int b, int c) {
     bool flag = true; 
-    int digit = 10; 
-    while(a > 0 && b > 0 && c >0 ) {
+    // cout<<"A: "<<a<<", B: "<<b<<", C: "<<c<<'\n';
+    while(a > 0 || b > 0 || c >0 ) {
         if (a%10 + b%10 + c%10 >= 10) return false; 
         a/=10; b/=10; c/=10; 
+        // cout<<a<<" "<<b<<" "<<c<<'\n'; 
     }
     return true; 
 }
