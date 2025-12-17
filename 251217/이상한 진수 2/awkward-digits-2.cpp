@@ -26,6 +26,11 @@ int main() {
             ans = max(ans, f()); 
             dig[i] = 0; 
         }
+        if (dig[i] == 1) {
+            dig[i] = 0; 
+            ans = max(ans, f()); 
+            dig[i] = 1; 
+        }
     }
     cout<<ans; 
     return 0;
