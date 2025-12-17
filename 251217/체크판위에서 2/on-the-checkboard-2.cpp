@@ -19,14 +19,13 @@ int main() {
         cout<<0<<'\n'; 
         return 0;
     }
-    for(int i=0; i<r; i++) {
-        for(int j=0; j<c; j++) {
+    for(int i=1; i<r; i++) {
+        for(int j=1; j<c; j++) {
             // 두번째 경로지 
-            if (i==0 && j==0) continue; 
             if (mp[i][j] == start) continue; 
             for(int k=i+1; k<r-1; k++) {
                 for(int l=j+1; l<c-1; l++) {
-                    if (mp[i][j] != mp[k][l]){
+                    if (start != mp[i][j] && mp[i][j] != mp[k][l] && mp[k][l] != end){
                         cnt++; 
                     }
                 }   
