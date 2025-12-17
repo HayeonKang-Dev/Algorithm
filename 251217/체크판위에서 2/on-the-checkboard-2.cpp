@@ -13,7 +13,12 @@ int main() {
 
     int cnt=0;
     // 첫번째 경로지 
+
     char start = mp[0][0], end= mp[r-1][c-1]; 
+    if (start==end) {
+        cout<<0<<'\n'; 
+        return 0;
+    }
     for(int i=0; i<r; i++) {
         for(int j=0; j<c; j++) {
             // 두번째 경로지 
