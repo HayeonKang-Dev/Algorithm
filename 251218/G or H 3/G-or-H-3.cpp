@@ -19,7 +19,7 @@ int main() {
     // for(int i=1; i<=mx; i++) cout<<num[i]<<' '; 
     // cout<<'\n';
     int ans = -1; 
-    for(int i=1; i<=mx; i++) {
+    for(int i=1; i<=mx-k; i++) {
         int tmp=0; 
         for(int j=i; j<i+k+1; j++) {
             tmp += num[j]; 
