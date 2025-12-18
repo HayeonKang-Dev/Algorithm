@@ -10,11 +10,22 @@ int main() {
         cin>>a; 
         v.push_back(a); 
     }
-    int ans = 0; 
+    int ans=0; 
     for(int i=0; i<n; i++) {
-        for(int j=i+1; j<n; j++) {
-            int tmp = accumulate(v.begin()+i, v.begin()+j, 0); 
-            if (find(v.begin(), v.end(), tmp/(j-i)) != v.end()) ans++; 
+        for(int j=i; j<n; j++) {
+            int tmp=0; 
+            int len = (j-i)+1; 
+            for(int k=i; k<=j; k++) {
+                tmp += v[k]; 
+            }
+            if (tmp%len != 0) continue; 
+            int avg = tmp/len; 
+            for(int k=i; k<=j; k++) {
+                if (v[k] == avg) {
+                    ans++; 
+                    break; 
+                }
+            }
         }
     }
     cout<<ans; 
