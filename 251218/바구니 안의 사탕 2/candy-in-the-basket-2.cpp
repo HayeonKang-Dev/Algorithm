@@ -12,12 +12,11 @@ int main() {
     int ans=0; 
     for(int i=0; i<=100; i++) {
         int tmp=0; 
-        // cout<<"범위: "<<i-k<<" ~ "<<i+k-1<<'\n';
-        // cout<<"왼쪽("<<i-k<<"), 중앙("<<i<<"), 오른쪽("<<i+k<<")\n"; 
-        int lim = min(100, i+2*k); 
-        for(int j=i; j<=lim; j++) {
-            tmp += candy[j]; 
-        }
+        for(int j=i-k; j<=i+k; j++) {
+            if (j >= 0 && j <= 100) {
+                tmp += candy[j]; 
+            }
+        } 
         ans = max(ans, tmp); 
     } 
     cout<<ans; 
