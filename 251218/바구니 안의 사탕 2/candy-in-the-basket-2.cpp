@@ -10,7 +10,7 @@ int main() {
         candy[b] += a; 
     }
     int ans=0; 
-    for(int i=k; i<=n; i++) {
+    for(int i=k; i<=100-k; i++) {
         int tmp=0; 
         // cout<<"범위: "<<i-k<<" ~ "<<i+k-1<<'\n';
         // cout<<"왼쪽("<<i-k<<"), 중앙("<<i<<"), 오른쪽("<<i+k<<")\n"; 
