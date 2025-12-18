@@ -11,7 +11,7 @@ int main() {
         v.push_back(a); 
     }
     int ans=0;
-    for(int i=0; i<n-k; i++) {
+    for(int i=0; i<=n-k; i++) {
         int tmp=0;
         for(int j=i; j<i+k; j++) {
             tmp += v[j]; 
