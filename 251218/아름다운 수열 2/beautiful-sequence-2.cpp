@@ -1,36 +1,34 @@
 #include <bits/stdc++.h>
 using namespace std;
-int n, m; 
-vector<int> v; 
-vector<int> v2; 
+int n, m, num[102], cpy[102]; 
+vector<int> A, B; 
 int main() {
     // Please write your code here.
     cin>>n>>m; 
     for(int i=0; i<n; i++) {
         int a; 
         cin>>a; 
-        v.push_back(a); 
+        A.push_back(a); 
     }
     for(int i=0; i<m; i++) {
         int a; 
         cin>>a; 
-        v2.push_back(a); 
+        B.push_back(a); 
+        num[a]++; 
     }
-    int ans=0;
-    sort(v2.begin(), v2.end()); 
-    do{
-        for(int i=0; i<=n-m; i++) { // 시작점 
-            bool flag = false; 
-            int p=0;
-            for(int j=i; j<i+m; j++) { // 구간 탐색 
-                if (v[j] != v2[p++]) {
-                    flag = true; 
-                    break; 
-                }
+    int ans=0; 
+    for(int i=0; i<=n-m; i++) {
+        memcpy(cpy, num, sizeof(cpy)); 
+        bool flag = true; 
+        for(int j=i; j<i+m; j++) {
+            if (cpy[A[j]] == 0) {
+                flag = false; 
+                break; 
             }
-            if (!flag) ans++; 
+            cpy[A[j]]--; 
         }
-    }while(next_permutation(v2.begin(), v2.end())); 
+        if (flag) ans++; 
+    }
     cout<<ans; 
     return 0;
 }
