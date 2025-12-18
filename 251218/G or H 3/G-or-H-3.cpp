@@ -25,8 +25,8 @@ int main() {
     for(int i=1; i<=10000; i++) {
         int tmp=0; 
         // cout<<"I: "<<i<<", j: "<<i+k+1;
-        if (i+k+1 > 10000) break; 
-        for(int j=i; j<i+k+1; j++) {
+        if (i+k > 10000) break; 
+        for(int j=i; j<=i+k; j++) {
             tmp += num[j]; 
         }
         // cout<<" => sum: "<<tmp<<'\n';
