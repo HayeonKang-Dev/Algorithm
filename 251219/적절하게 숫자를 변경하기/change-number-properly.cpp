@@ -7,12 +7,13 @@ int main() {
     // Please write your code here.
     cin>>n>>m; 
     for(int i=0; i<n; i++) cin>>a[i]; 
+
     for(int i=0; i<n; i++) {
         for(int j=0; j<=m; j++) {
             for(int k=1; k<=4; k++) dp[i][j][k] = INT_MIN; 
         }
     }
-    for(int i=1; i<=m; i++) dp[0][0][i] = (i == a[0]); 
+    for(int i=1; i<=4; i++) dp[0][0][i] = (i == a[0]); 
 
     for(int i=1; i<n; i++) { // i번째 숫자까지 고려했을 때 
         for(int j=0; j<=m; j++) { // 그 동안 숫자를 j번 변경했고 
