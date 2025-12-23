@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 int n, m, mp[55][55], visited[55][55]; 
-int ans=0, dx[]={-1, 0, 1, 0}, dy[]={0, 1, 0, -1};
+int ans=-1, dx[]={-1, 0, 1, 0}, dy[]={0, 1, 0, -1};
 int mx = INT_MIN; 
 int ret_depth; 
 void dfs(int x, int y, int depth) {
