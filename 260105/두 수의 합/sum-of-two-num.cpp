@@ -1,15 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, k;
-unordered_map<int, int> mp;
-vector<int> v;
+long long n, k;
+unordered_map<long long, long long> mp;
+vector<long long> v;
 
 int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
     cin >> n >> k;
 
     for (int i = 0; i < n; i++) {
-        int a;
+        long long a;
         cin >> a;
         mp[a]++;
         if (mp[a] == 1) v.push_back(a);
@@ -18,15 +21,15 @@ int main() {
     sort(v.begin(), v.end());
 
     long long ans = 0;
-    for (int x : v) {
-        int y = k - x;
+    for (long long x : v) {
+        long long y = k - x;
         if (x > y) break;
         if (mp.find(y) == mp.end()) continue;
 
         if (x == y)
-            ans += 1LL * mp[x] * (mp[x] - 1) / 2;
+            ans += mp[x] * (mp[x] - 1) / 2;
         else
-            ans += 1LL * mp[x] * mp[y];
+            ans += mp[x] * mp[y];
     }
 
     cout << ans;
