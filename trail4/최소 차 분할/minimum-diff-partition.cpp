@@ -1,32 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 int N; 
-vector<int> v; 
-int tot; 
-int dp[100006]; 
+vector<int> A; 
+int dp[102][100006];
+int offset; 
+
+int go(int idx, int diff) {
+    if (idx == N) return abs(diff); 
+
+    int &ret = dp[idx][diff+offset]; 
+    if (ret != -1) return ret; 
+
+    ret = min(go(idx+1, diff+A[idx]), go(idx+1, diff-A[idx])); 
+    return ret; 
+}
+
 int main() {
     // Please write your code here.
     cin>>N; 
-    v.resize(N); 
-    for(int i=0; i<N; i++) cin>>v[i]; 
-    tot = accumulate(v.begin(), v.end(), 0); 
-    dp[0] = 1; 
-
-    for(int num : v) {
-        for(int j=tot; j>=num; j--) {
-            if (dp[j-num]) dp[j] = 1; 
-        }
+    for(int i=0; i<N; i++) {
+        int a; cin>>a; 
+        A.push_back(a); 
     }
-    
-    int ans=1e9; 
-    for(int s=1; s<tot; s++) { // s= 합 
-        if (dp[s]) {
-            int diff = abs(tot - 2*s); // A의 합 = s, B의 합 = total-s, 즉, 차이는 |(total-s) - s| = total - 2*s 
-            ans = min(ans, diff); 
-        }
-    }
-    cout<<ans; 
-
-
+    memset(dp, -1, sizeof(dp)); 
+    offset = accumulate(A.begin(), A.end(), 0); 
+    cout<<go(0, 0); 
     return 0;
 }
